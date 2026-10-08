@@ -1,0 +1,18 @@
+{
+  "name": "com.cupkekgames.hexgrids",
+  "displayName": "CupkekGames Hex Grids",
+  "version": "0.1.0",
+  "author": {
+    "name": "CupkekGames",
+    "url": "https://www.docs.cupkek.games"
+  },
+  "unity": "6000.0",
+  "documentationUrl": "https://docs.cupkek.games/",
+  "description": "Deterministic hex grids: axial coordinates, a world layout (pointy or flat), shapes in a fixed order (range, ring, line, cone), a rectangular field with blocked tiles, occupancy with reservations and a pathfinder with stable tie-breaks. Plain C#; no physics.",
+  "keywords": [
+    "Hex",
+    "Grid",
+    "CupkekGames"
+  ],
+  "dependencies": {}
+}
