@@ -7,14 +7,27 @@ namespace CupkekGames.HexGrids
     public readonly struct HexTileStyle
     {
         public readonly HexCoord Hex;
+        /// <summary>The fill's colour at its edge (and everywhere, unless <see cref="FillCentre"/> differs).</summary>
         public readonly Color Fill;
         public readonly Color Ring;
+        /// <summary>The fill's colour at the hex's centre, blending out to <see cref="Fill"/> at its edge.</summary>
+        public readonly Color FillCentre;
 
         public HexTileStyle(HexCoord hex, Color fill, Color ring)
+            : this(hex, fill, ring, fill)
+        {
+        }
+
+        /// <summary>
+        /// A hex whose fill blends from <paramref name="fillCentre"/> at its centre to <paramref name="fill"/> at its
+        /// edge: a see-through centre gives a soft fill that gathers at the ring.
+        /// </summary>
+        public HexTileStyle(HexCoord hex, Color fill, Color ring, Color fillCentre)
         {
             Hex = hex;
             Fill = fill;
             Ring = ring;
+            FillCentre = fillCentre;
         }
     }
 
@@ -47,11 +60,12 @@ namespace CupkekGames.HexGrids
                 centre.y += lift;
 
                 Color fillColor = Faded(style.Fill, opacity);
-                if (fillColor.a > 0f)
+                Color centreColor = Faded(style.FillCentre, opacity);
+                if (fillColor.a > 0f || centreColor.a > 0f)
                 {
                     int first = vertices.Count;
                     vertices.Add(centre);
-                    colors.Add(fillColor);
+                    colors.Add(centreColor);
                     for (int corner = 0; corner < 6; corner++)
                     {
                         vertices.Add(centre + Direction(layout, style.Hex, corner) * fill);
